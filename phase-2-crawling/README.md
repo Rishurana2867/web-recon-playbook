@@ -11,7 +11,7 @@ No requests to the target — pulls from archives:
 
 ```bash
 # GAU — fetches from Wayback, AlienVault, CommonCrawl
-gau target.com --threads 5 -o gau_urls.txt
+gau target.com --threads 5 --o gau_urls.txt
 
 # Waybackurls
 echo "target.com" | waybackurls > wayback_urls.txt
