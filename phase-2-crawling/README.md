@@ -13,6 +13,34 @@ No requests to the target — pulls from archives:
 # GAU — fetches from Wayback, AlienVault, CommonCrawl
 gau target.com --threads 5 --o gau_urls.txt
 
+# clean duplicates
+cat gau_urls.txt | sort -u > gau_clean.txt
+
+# api end points
+cat gau_clean.txt | grep -Ei "api|v1|v2|v3|graphql" > api_urls.txt
+
+# Parameters (good for XSS, IDOR, SSRF)
+cat gau_clean.txt | grep "=" > params.txt
+
+# JS files
+cat gau_clean.txt | grep -Ei "\.js$" > js.txt
+
+# Login/Auth
+cat gau_clean.txt | grep -Ei "login|signup|auth|token|jwt|oauth|reset|verify" > auth.txt
+
+# Admin panels
+cat gau_clean.txt | grep -Ei "admin|dashboard|internal|staff|user" > panels.txt
+
+# Upload endpoints
+cat gau_clean.txt | grep -Ei "upload|image|file|media|import" > uploads.txt
+
+# merge it
+cat gau_clean.txt | httpx \
+-status-code \
+-title \
+-tech-detect \
+-o gau_alive.txt
+
 # Waybackurls
 echo "target.com" | waybackurls > wayback_urls.txt
 
