@@ -65,6 +65,21 @@ katana -u https://target.com \
   -kf all \     # Known files
   -silent \
   -o katana_deep.txt
+
+# Clean duplicates
+cat katana_deep.txt | sort -u > katana_clean.txt
+
+# Check alive URLs
+cat katana_clean.txt | httpx \
+-status-code \
+-title \
+-tech-detect \
+-content-length \
+-o alive_katana.txt
+
+# Extract JS files
+cat katana_clean.txt | grep -Ei "\.js($|\?)" > js.txt
+
 ```
 
 ## Step 3 — Combine All URLs
