@@ -74,6 +74,15 @@ httpx -l all_subs.txt \
 
 echo "[+] Live subdomains: $(wc -l < live_subs.txt)"
 ```
+## filter the results
+
+'''bash
+cat live_subs.txt | grep "\[200\]" | tee 200.txt
+'''
+
+'''bash
+grep "\[403\]" live_subs.txt > 403.txt
+'''
 
 ## Step 5 — Screenshot All Live Hosts
 
